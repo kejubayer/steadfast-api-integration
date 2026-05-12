@@ -1,0 +1,54 @@
+{
+    "name": "kejubayer/steadfast-api-integration",
+    "description": "Laravel Steadfast Courier API integration package for parcel creation, bulk orders, tracking, balance checks, delivery status webhooks, and tracking update storage.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "steadfast",
+        "steadfast courier",
+        "steadfast api",
+        "steadfast courier api",
+        "steadfast laravel",
+        "laravel steadfast",
+        "laravel courier api",
+        "laravel delivery api",
+        "laravel parcel tracking",
+        "laravel cod delivery",
+        "courier api bangladesh",
+        "parcel tracking",
+        "delivery status webhook",
+        "tracking webhook",
+        "ecommerce delivery",
+        "cod courier"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kejubayer\\Steadfast\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Khondoker Eftakhar Jubayer",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/database": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/http": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/routing": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kejubayer\\Steadfast\\SteadfastServiceProvider"
+            ],
+            "aliases": {
+                "Steadfast": "Kejubayer\\Steadfast\\Facades\\Steadfast"
+            }
+        }
+    },
+    "prefer-stable": true
+}
