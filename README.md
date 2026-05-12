@@ -231,6 +231,12 @@ try {
 }
 ```
 
+If Steadfast returns `401 Unauthorized` with `Account is not active!` while creating a parcel, the package throws a clearer message:
+
+```text
+Your Steadfast account is not active. Please contact Steadfast authority to activate your account before creating parcels.
+```
+
 Webhook requests return Laravel validation errors if required fields are missing or invalid.
 
 ## Troubleshooting

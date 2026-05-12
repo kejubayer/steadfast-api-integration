@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Kejubayer\Steadfast\Services;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
+use RuntimeException;
 use UnexpectedValueException;
 
 class SteadfastService
@@ -35,13 +37,20 @@ class SteadfastService
      *
      * @throws GuzzleException
      * @throws JsonException
+     * @throws RuntimeException
      * @throws UnexpectedValueException
      */
     public function createParcel(array $data): array
     {
-        $response = $this->client->post('create_order', [
-            'json' => $data,
-        ]);
+        try {
+            $response = $this->client->post('create_order', [
+                'json' => $data,
+            ]);
+        } catch (ClientException $exception) {
+            $this->throwInactiveAccountException($exception);
+
+            throw $exception;
+        }
 
         return $this->decodeResponse((string) $response->getBody());
     }
@@ -133,5 +142,22 @@ class SteadfastService
         }
 
         return $decoded;
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function throwInactiveAccountException(ClientException $exception): void
+    {
+        $response = $exception->getResponse();
+        $body = (string) $response->getBody();
+
+        if ($response->getStatusCode() === 401 && stripos($body, 'Account is not active') !== false) {
+            throw new RuntimeException(
+                'Your Steadfast account is not active. Please contact Steadfast authority to activate your account before creating parcels.',
+                401,
+                $exception
+            );
+        }
     }
 }
